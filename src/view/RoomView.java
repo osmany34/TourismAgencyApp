@@ -116,8 +116,6 @@ public class RoomView extends Layout {
 
                     if (result) {
                         Helper.showMsg("done");
-                        // Assuming employeeView is defined somewhere in the class
-                        // employeeView.loadReservationTable();
                         dispose();
                     } else {
                         Helper.showMsg("error");
