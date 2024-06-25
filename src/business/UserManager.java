@@ -6,9 +6,8 @@ import entity.User;
 
 import java.util.ArrayList;
 
-// Kullanıcı işlemlerini yöneten sınıf
 public class UserManager {
-    private final UserDao userDao;  // Kullanıcı veritabanı erişim nesnesi
+    private final UserDao userDao;  // Kullanıcı veritabanı
 
     public UserManager() {
         this.userDao = new UserDao();

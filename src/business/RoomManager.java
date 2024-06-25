@@ -111,7 +111,7 @@ public class RoomManager {
             }
         }
 
-        System.out.println(query); // Debug amaçlı, oluşan SQL sorgusunu kontrol etmek için
+        System.out.println(query);
 
         ArrayList<Room> queryResult = this.roomDao.selectByQuery(query);
         return queryResult;

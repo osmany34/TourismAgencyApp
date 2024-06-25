@@ -492,8 +492,6 @@ public class EmployeeView extends Layout {
         this.tbl_hotel.setComponentPopupMenu(hotel_menu);
     }
 
-    //Formatlı olarak ayarlanmış tarih hücrelerinin ayarlanması
-
     private void createUIComponents() throws ParseException {
         this.txtf_date_first_room = new JFormattedTextField(new MaskFormatter("##-##-####"));
         this.txtf_date_first_room.setText("01-01-2024");

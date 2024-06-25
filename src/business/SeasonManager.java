@@ -8,7 +8,6 @@ import entity.Season;
 
 import java.util.ArrayList;
 
-// Sezon işlemlerini yöneten sınıf
 public class SeasonManager {
     SeasonDao seasonDao = new SeasonDao();
 

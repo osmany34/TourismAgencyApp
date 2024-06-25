@@ -6,7 +6,7 @@ import entity.Hotel;
 
 import java.util.ArrayList;
 
-// Otel işlemlerini yönettiğimiz sınıf
+
 public class HotelManager {
     HotelDao hotelDao = new HotelDao();
 

@@ -12,7 +12,6 @@ public class Db {
     private final String DB_USER = "postgres"; // Veritabanı kullanıcı adı
     private final String DB_PASS = "admin"; // Veritabanı şifresi
 
-    // Yapılandırıcı metot
     private Db () {
         try {
             // Veritabanı bağlantısını kur

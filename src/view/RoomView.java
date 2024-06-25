@@ -94,7 +94,7 @@ public class RoomView extends Layout {
                     ComboItem selectedSeason = (ComboItem) cmb_season.getSelectedItem();
 
                     if (selectedHotel == null || selectedPension == null || selectedSeason == null) {
-                        Helper.showMsg("Please select all required fields.");
+                        Helper.showMsg("Lütfen gerekli tüm alanları seçin.");
                         return;
                     }
 

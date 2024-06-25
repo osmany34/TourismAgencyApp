@@ -64,7 +64,7 @@ public class SeasonView extends Layout{
                         result = seasonManager.save(season);
 
                     } catch (DateTimeException ex) {
-                        Helper.showMsg("Date Format is Wrong !");
+                        Helper.showMsg("Tarih Formatı Yanlış!");
                         return;
                     }
                 }

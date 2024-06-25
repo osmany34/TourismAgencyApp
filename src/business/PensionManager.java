@@ -10,7 +10,6 @@ import entity.User;
 import java.util.ArrayList;
 
 
-// Pansiyon işlemlerini yöneten sınıf
 public class PensionManager {
     PensionDao pensionDao = new PensionDao();
 

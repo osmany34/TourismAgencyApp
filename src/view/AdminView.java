@@ -199,11 +199,6 @@ public class AdminView extends Layout {
         });
     }
 
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-    }
-
     private User getUserUpdated() {
         return user;
 

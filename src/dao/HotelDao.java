@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-// Otel veritabanı işlemlerini yapan sınıf
 public class HotelDao {
     private final Connection con;
 
