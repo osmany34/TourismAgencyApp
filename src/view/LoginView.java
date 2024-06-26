@@ -53,7 +53,7 @@ public class LoginView extends Layout {
                         employeeView.setVisible(true);
                         dispose(); // Giriş ekranını kapat
                     }else {
-                        Helper.showMsg("Geçersiz kullanıcı rolü."); // Diğer rolleri de ele alabilirsiniz
+                        Helper.showMsg("Geçersiz kullanıcı rolü.");
                     }
                 }
             }

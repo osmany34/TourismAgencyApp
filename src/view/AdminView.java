@@ -55,7 +55,7 @@ public class AdminView extends Layout {
         }
 
         // Kullanıcı bilgisini etiketi
-        this.lbl_welcome.setText("Username : " + this.user.getUsername());
+        this.lbl_welcome.setText("Kullanıcı : " + this.user.getUsername());
 
         // Kullanıcı tablosunu yükle ve satır seçme olayı ekle
         loadUserTable(null);
@@ -145,13 +145,13 @@ public class AdminView extends Layout {
             this.txtf_username.setText(null);
             this.txtf_password.setText(null);
             this.cmb_user_role.setSelectedItem("ADMIN");
-            this.btn_add.setText("ADD");
+            this.btn_add.setText("Ekle");
             setUserUpdated(null);
 
         });
 
         // Kullanıcı güncelleme seçeneğini içeren sağ tıklama menüsü ekle
-        this.user_menu.add("Update").addActionListener(e -> {
+        this.user_menu.add("Güncelle").addActionListener(e -> {
             this.txtf_username.setEnabled(true);
             this.txtf_password.setEnabled(true);
             this.cmb_user_role.setEnabled(true);
@@ -161,7 +161,7 @@ public class AdminView extends Layout {
             this.txtf_username.setText(userUpdate.getUsername());
             this.txtf_password.setText(userUpdate.getPassword());
             this.cmb_user_role.setSelectedItem(userUpdate.getRole());
-            this.btn_add.setText("UPDATE");
+            this.btn_add.setText("Güncelle");
             setUserUpdated(userUpdate);
         });
         tbl_user.setComponentPopupMenu(user_menu);
@@ -179,7 +179,7 @@ public class AdminView extends Layout {
     // Kullanıcı tablosunu yükleme metodu
     public void loadUserTable(ArrayList<Object[]> userList) {
 
-        this.col_user = new Object[]{"ID", "Username", "Password", "Role"};
+        this.col_user = new Object[]{"ID", "Kullanıcı", "Şifre", "Rol"};
         if (userList == null) {
             userList = this.userManager.getForTable(this.col_user.length, this.userManager.findAll());
         }
