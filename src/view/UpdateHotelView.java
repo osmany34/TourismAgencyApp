@@ -91,9 +91,6 @@ public class UpdateHotelView extends Layout {
             boolean result;
 
             hotel = hotelManager.getById(currentHotel.getId());
-
-            //ComboItem selectedStar = (ComboItem) tf_star.getSelectedItem();
-
             this.hotel.setName(txtf_name.getText());
             this.hotel.setAddress(txtf_adress.getText());
             this.hotel.setCity(txtf_city.getText());

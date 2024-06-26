@@ -90,7 +90,7 @@ public class EmployeeView extends Layout {
         this.room_menu = new JPopupMenu();
         this.room_res_menu = new JPopupMenu();
         this.reservation_menu = new JPopupMenu();
-        this.lbl_welcome.setText("Username : " + user.getUsername());
+        this.lbl_welcome.setText("Kullanıcı : " + user.getUsername());
         this.reservationManager = new ReservationManager();
 
         loadHotelTable();

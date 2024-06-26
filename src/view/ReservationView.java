@@ -58,7 +58,6 @@ public class ReservationView extends Layout {
     // Kurucu metod
     public ReservationView(Room room, String check_in_date, String check_out_date, int adult_numb, int child_numb, Reservation reservation) {
 
-        // GUI'yi oluştur
         this.add(container);
         this.guiInitilaze(1200, 1200);
         this.container = container;

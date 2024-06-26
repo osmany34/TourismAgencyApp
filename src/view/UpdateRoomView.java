@@ -54,10 +54,6 @@ public class UpdateRoomView extends Layout {
         this.roomManager = new RoomManager();
         Room currentRoom = roomManager.getById(roomId);
 
-        //Açılan ekrandaki değerler, seçilen odanın değerleri ile eşitleme ayarları
-
-
-
         ArrayList<Pension> pensions = pensionManager.getPensionByOtelId(currentRoom.getHotel_id());
         for(Pension pension:pensions){
             cmb_pension.addItem(pension.getComboItem());
