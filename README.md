@@ -1,6 +1,6 @@
 # Turizm Acente Sistemi
 
-Bu proje, Turizm Acentesi'nin günlük operasyonlarını dijital ortamda yönetmesini sağlamak amacıyla geliştirilmiştir. Sistem, JavaFX kullanılarak geliştirilmiş olup PostgreSQL veritabanı üzerinde çalışır.
+Bu proje, Turizm Acentesi'nin günlük operasyonlarını dijital ortamda yönetmesini sağlamak amacıyla geliştirilmiştir. Sistem, Java Swing kullanılarak geliştirilmiş olup PostgreSQL veritabanı üzerinde çalışır.
 
 ## Veritabanı Yapısı
 
@@ -15,7 +15,7 @@ Sistem, aşağıdaki tabloları kullanır:
 
 ## Kullanıcı Arayüzü (GUI)
 
-Proje JavaFX ile geliştirilmiştir. Kullanıcı dostu ve işlevsel bir arayüz sağlar:
+Proje Java Swing ile geliştirilmiştir. Kullanıcı dostu ve işlevsel bir arayüz sağlar:
 
 - **Admin Paneli**: Kullanıcı yönetimi (ekleme, silme, güncelleme) ve acentelerin listelenmesi.
 - **Acente Çalışanı Paneli**: Otel yönetimi, oda yönetimi, rezervasyon işlemleri yapma.
@@ -30,5 +30,6 @@ Proje JavaFX ile geliştirilmiştir. Kullanıcı dostu ve işlevsel bir arayüz 
 ## Kullanılan Teknolojiler 
 
 - Java 19
+- Java Swing
 - PostgreSQL veritabanı
 - Intellij IDEA ide.
