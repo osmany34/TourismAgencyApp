@@ -11,19 +11,19 @@ import java.util.ArrayList;
 
 // Sezon veritabanı işlemlerini yapan sınıf
 public class SeasonDao {
-    private final Connection con;
+    private final Connection connection;
 
     // Yapılandırıcı metot
     public SeasonDao() {
-        this.con = Db.getInstance();
+        this.connection = Db.getInstance();
     }
 
     // Belirli bir otelin sezonlarını getiren metot
     public ArrayList<Season> getSeasonsByOtelId(int otelId) {
         ArrayList<Season> seasons = new ArrayList<>();
-        String query = "SELECT * FROM public.season WHERE hotel_id = ?";
+        String query = "SELECT * FROM public.hotel_season WHERE hotel_id = ?";
 
-        try (PreparedStatement pr = con.prepareStatement(query)) {
+        try (PreparedStatement pr = connection.prepareStatement(query)) {
             pr.setInt(1, otelId);
             ResultSet rs = pr.executeQuery();
 
@@ -41,9 +41,9 @@ public class SeasonDao {
     // Belirli bir ID'ye sahip sezonu getiren metot
     public Season getByID(int id) {
         Season obj = null;
-        String query = "SELECT * FROM public.season WHERE id = ? ";
+        String query = "SELECT * FROM public.hotel_season WHERE id = ? ";
         try {
-            PreparedStatement pr = this.con.prepareStatement(query);
+            PreparedStatement pr = this.connection.prepareStatement(query);
             pr.setInt(1, id);
             ResultSet rs = pr.executeQuery();
             if (rs.next()) {
@@ -70,9 +70,9 @@ public class SeasonDao {
     // Tüm sezonları getiren metot
     public ArrayList<Season> findAll() {
         ArrayList<Season> seasonList = new ArrayList<>();
-        String sql = "SELECT * FROM public.season";
+        String sql = "SELECT * FROM public.hotel_season";
         try {
-            ResultSet rs = this.con.createStatement().executeQuery(sql);
+            ResultSet rs = this.connection.createStatement().executeQuery(sql);
             while (rs.next()) {
 
                 seasonList.add(this.match(rs));
@@ -85,7 +85,7 @@ public class SeasonDao {
 
     // Sezon ekleyen / kaydeden metot
     public boolean save(Season season){
-        String query = "INSERT INTO public.season"+
+        String query = "INSERT INTO public.hotel_season"+
                 "("+
                 "hotel_id,"+
                 "start_date," +
@@ -94,7 +94,7 @@ public class SeasonDao {
                 ")"+
                 "VALUES (?,?,?,?)";
         try {
-            PreparedStatement pr = con.prepareStatement(query);
+            PreparedStatement pr = connection.prepareStatement(query);
             pr.setInt(1,season.getHotel_id());
             pr.setDate(2, Date.valueOf(season.getStart_date()));
             pr.setDate(3, Date.valueOf(season.getFinish_date()));
@@ -110,10 +110,10 @@ public class SeasonDao {
     public double returnPriceParameter(int id){
 
         double priceParameter = 0.0;
-        String query = "SELECT price_parameter FROM public.season WHERE id=?";
+        String query = "SELECT price_parameter FROM public.hotel_season WHERE id=?";
 
         try {
-            PreparedStatement pr = con.prepareStatement(query);
+            PreparedStatement pr = connection.prepareStatement(query);
             pr.setInt(1,id);
 
             ResultSet rs = pr.executeQuery();
@@ -133,8 +133,8 @@ public class SeasonDao {
     // Sezon silen metot
     public boolean delete(int hotel_id){
         try{
-            String query = "DELETE FROM public.season WHERE id = ?";
-            PreparedStatement pr = con.prepareStatement(query);
+            String query = "DELETE FROM public.hotel_season WHERE id = ?";
+            PreparedStatement pr = connection.prepareStatement(query);
             pr.setInt(1,hotel_id);
             return pr.executeUpdate() != -1;
         }catch (SQLException throwables){

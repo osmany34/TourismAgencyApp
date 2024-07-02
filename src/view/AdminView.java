@@ -16,13 +16,13 @@ import java.util.ArrayList;
 public class AdminView extends Layout {
     private JPanel container;
     private JTable tbl_user;
-    private JComboBox<ComboItem> cmb_user;
+    private JComboBox cmb_user;
     private JButton btn_search;
     private JButton btn_clear;
     private JButton btn_logout;
     private JTextField txtf_username;
     private JTextField txtf_password;
-    private JComboBox cmb_user_role;
+    private JComboBox<ComboItem> cmb_user_role;
     private JButton btn_add;
     private JButton btn_delete;
     private JLabel lbl_welcome;
@@ -145,7 +145,7 @@ public class AdminView extends Layout {
             this.txtf_username.setText(null);
             this.txtf_password.setText(null);
             this.cmb_user_role.setSelectedItem("ADMIN");
-            this.btn_add.setText("Ekle");
+            this.btn_add.setText("EKLE");
             setUserUpdated(null);
 
         });
@@ -161,7 +161,7 @@ public class AdminView extends Layout {
             this.txtf_username.setText(userUpdate.getUsername());
             this.txtf_password.setText(userUpdate.getPassword());
             this.cmb_user_role.setSelectedItem(userUpdate.getRole());
-            this.btn_add.setText("Güncelle");
+            this.btn_add.setText("GÜNCELLE");
             setUserUpdated(userUpdate);
         });
         tbl_user.setComponentPopupMenu(user_menu);
@@ -198,7 +198,9 @@ public class AdminView extends Layout {
             }
         });
     }
-
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
     private User getUserUpdated() {
         return user;
 

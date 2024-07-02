@@ -48,10 +48,6 @@ public class LoginView extends Layout {
                         EmployeeView employeeView = new EmployeeView(entryUser);
                         employeeView.setVisible(true);
                         dispose();// Giriş ekranını kapat
-                    }else if (entryUser.getRole().equals("personel")) {
-                        EmployeeView employeeView = new EmployeeView(entryUser);
-                        employeeView.setVisible(true);
-                        dispose(); // Giriş ekranını kapat
                     }else {
                         Helper.showMsg("Geçersiz kullanıcı rolü.");
                     }

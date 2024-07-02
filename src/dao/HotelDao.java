@@ -11,13 +11,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+// Otel veritabanı işlemlerini yapan sınıf
 public class HotelDao {
-    private final Connection con;
+    private final Connection connection;
 
     // Yapılandırıcı metot
     public HotelDao() {
 
-        this.con = Db.getInstance();
+        this.connection = Db.getInstance();
     }
 
 
@@ -26,7 +27,7 @@ public class HotelDao {
         Hotel obj = null;
         String query = "SELECT * FROM public.hotel WHERE id = ? ";
         try {
-            PreparedStatement pr = this.con.prepareStatement(query);
+            PreparedStatement pr = this.connection.prepareStatement(query);
             pr.setInt(1, id);
             ResultSet rs = pr.executeQuery();
             if (rs.next()) {
@@ -64,7 +65,7 @@ public class HotelDao {
         ArrayList<Hotel> hotelList = new ArrayList<>();
         String sql = "SELECT * FROM public.hotel";
         try {
-            ResultSet rs = this.con.createStatement().executeQuery(sql);
+            ResultSet rs = this.connection.createStatement().executeQuery(sql);
             while (rs.next()) {
 
                 hotelList.add(this.match(rs));
@@ -95,7 +96,7 @@ public class HotelDao {
                 ")" +
                 " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
-            PreparedStatement pr = con.prepareStatement(query);
+            PreparedStatement pr = connection.prepareStatement(query);
             pr.setString(1, hotel.getName());
             pr.setString(2, hotel.getMail());
             pr.setString(3, hotel.getPhone());
@@ -119,7 +120,7 @@ public class HotelDao {
     public boolean delete(int model_id){
         try{
             String query = "DELETE FROM public.hotel WHERE id = ?";
-            PreparedStatement pr = con.prepareStatement(query);
+            PreparedStatement pr = connection.prepareStatement(query);
             pr.setInt(1,model_id);
             return pr.executeUpdate() != -1;
         }catch (SQLException throwables){
@@ -145,7 +146,7 @@ public class HotelDao {
                     "spa = ?,"+
                     "room_service = ? "+
                     "WHERE id = ?";
-            PreparedStatement pr = con.prepareStatement(query);
+            PreparedStatement pr = connection.prepareStatement(query);
             pr.setString(1, hotel.getName());
             pr.setString(2, hotel.getMail());
             pr.setString(3, hotel.getPhone());

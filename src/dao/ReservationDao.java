@@ -11,10 +11,10 @@ import java.util.ArrayList;
 // Rezervasyon veritabanı işlemlerini yapan sınıf
 public class ReservationDao {
 
-    private final Connection con;
+    private final Connection connection;
 
     public ReservationDao() {
-        this.con = Db.getInstance();
+        this.connection = Db.getInstance();
     }
 
     // Belirli bir otel ID'sine sahip rezervasyonları getiren metot
@@ -22,7 +22,7 @@ public class ReservationDao {
         ArrayList<Reservation> reservations = new ArrayList<>();
         String query = "SELECT * FROM public.reservation WHERE room_id = ?";
 
-        try (PreparedStatement pr = con.prepareStatement(query)) {
+        try (PreparedStatement pr = connection.prepareStatement(query)) {
             pr.setInt(1, otelId);
             ResultSet rs = pr.executeQuery();
 
@@ -42,7 +42,7 @@ public class ReservationDao {
         Reservation obj = null;
         String query = "SELECT * FROM public.reservation WHERE id = ?";
         try {
-            PreparedStatement pr = this.con.prepareStatement(query);
+            PreparedStatement pr = this.connection.prepareStatement(query);
             pr.setInt(1, id);
             ResultSet rs = pr.executeQuery();
             if (rs.next()) {
@@ -64,9 +64,9 @@ public class ReservationDao {
         obj.setTotal_price(rs.getDouble("total_price"));
         obj.setGuest_count(rs.getInt("guest_count"));
         obj.setGuest_name(rs.getString("guest_name"));
-        obj.setGuess_citizen_id(rs.getString("guess_citizen_id"));
-        obj.setGuess_mail(rs.getString("guess_mail"));
-        obj.setGuess_phone(rs.getString("guess_phone"));
+        obj.setGuess_citizen_id(rs.getString("guest_citizen_id"));
+        obj.setGuess_mail(rs.getString("guest_mail"));
+        obj.setGuess_phone(rs.getString("guest_phone"));
         obj.setCheck_out_date(LocalDate.parse(rs.getString("check_out_date")));
         return obj;
     }
@@ -76,7 +76,7 @@ public class ReservationDao {
         ArrayList<Reservation> resList = new ArrayList<>();
         String sql = "SELECT * FROM public.reservation";
         try {
-            ResultSet rs = this.con.createStatement().executeQuery(sql);
+            ResultSet rs = this.connection.createStatement().executeQuery(sql);
             while (rs.next()) {
 
                 resList.add(this.match(rs));
@@ -96,14 +96,14 @@ public class ReservationDao {
                 "total_price,"+
                 "guest_count,"+
                 "guest_name,"+
-                "guess_citizen_id,"+
-                "guess_mail,"+
-                "guess_phone,"+
+                "guest_citizen_id,"+
+                "guest_mail,"+
+                "guest_phone,"+
                 "check_out_date"+
                 ")"+
                 "VALUES (?,?,?,?,?,?,?,?,?)";
         try {
-            PreparedStatement pr = con.prepareStatement(query);
+            PreparedStatement pr = connection.prepareStatement(query);
 
             pr.setInt(1,reservation.getRoom_id());
             pr.setDate(2,Date.valueOf(reservation.getCheck_in_date()));
@@ -126,7 +126,7 @@ public class ReservationDao {
     public boolean delete(int hotel_id){
         try{
             String query = "DELETE FROM public.reservation WHERE id = ?";
-            PreparedStatement pr = con.prepareStatement(query);
+            PreparedStatement pr = connection.prepareStatement(query);
             pr.setInt(1,hotel_id);
             return pr.executeUpdate() != -1;
         }catch (SQLException throwables){
@@ -144,7 +144,7 @@ public class ReservationDao {
     public ArrayList<Reservation> selectByQuery(String query){//hazır bir SQL sorgu metodu oluşturduk.
         ArrayList<Reservation> resList=new ArrayList<>();
         try {
-            ResultSet rs=this.con.createStatement().executeQuery(query);
+            ResultSet rs=this.connection.createStatement().executeQuery(query);
             while (rs.next()){
                 resList.add(this.match(rs));
 
@@ -165,13 +165,13 @@ public class ReservationDao {
                     "total_price = ?,"+
                     "guest_count = ?,"+
                     "guest_name = ?,"+
-                    "guess_citizen_id = ?,"+
-                    "guess_mail = ?,"+
-                    "guess_phone = ?,"+
+                    "guest_citizen_id = ?,"+
+                    "guest_mail = ?,"+
+                    "guest_phone = ?,"+
                     "check_out_date = ?"+
                     " WHERE id = ?";
 
-            PreparedStatement pr = con.prepareStatement(query);
+            PreparedStatement pr = connection.prepareStatement(query);
             pr.setInt(1,reservation.getRoom_id());
             pr.setDate(2,Date.valueOf(reservation.getCheck_in_date()));
             pr.setDouble(3,reservation.getTotal_price());

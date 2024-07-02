@@ -14,19 +14,19 @@ import java.util.ArrayList;
 
 // Pension veritabanı işlemlerini yapan sınıf
 public class PensionDao {
-    private final Connection con;
+    private final Connection connection;
 
     // Yapılandırıcı metot
     public PensionDao() {
-        this.con = Db.getInstance();
+        this.connection = Db.getInstance();
     }
 
     // Belirli bir otel ID'sine sahip Pension getiren metot
     public ArrayList<Pension> getPensionByOtelId(int id) {
         ArrayList<Pension> pensions = new ArrayList<>();
-        String query = "SELECT * FROM public.pension WHERE hotel_id = ?";
+        String query = "SELECT * FROM public.hotel_pension WHERE hotel_id = ?";
 
-        try (PreparedStatement pr = con.prepareStatement(query)) {
+        try (PreparedStatement pr = connection.prepareStatement(query)) {
             pr.setInt(1, id);
             ResultSet rs = pr.executeQuery();
 
@@ -44,9 +44,9 @@ public class PensionDao {
     // Belirli bir ID'ye sahip Pension getiren metot
     public Pension getByID(int id) {
         Pension obj = null;
-        String query = "SELECT * FROM public.pension WHERE id = ? ";
+        String query = "SELECT * FROM public.hotel_pension WHERE id = ? ";
         try {
-            PreparedStatement pr = this.con.prepareStatement(query);
+            PreparedStatement pr = this.connection.prepareStatement(query);
             pr.setInt(1, id);
             ResultSet rs = pr.executeQuery();
             if (rs.next()) {
@@ -72,12 +72,12 @@ public class PensionDao {
     // Pension güncelleyen metot-programa daha sonra eklenecek
     public boolean update(Pension pension) {
         try {
-            String query = "UPDATE public.pension SET " +
+            String query = "UPDATE public.hotel_pension SET " +
                     "hotel_id = ?," +
                     "pension_type = ?" +
                     "WHERE user_id = ?";
 
-            PreparedStatement pr = con.prepareStatement(query);
+            PreparedStatement pr = connection.prepareStatement(query);
             pr.setInt(1,pension.getHotel_id());
             pr.setString(2,pension.getPension_type());
             return pr.executeUpdate() != -1;
@@ -91,9 +91,9 @@ public class PensionDao {
     // Tüm pansiyonları getiren metot
     public ArrayList<Pension> findAll() {
         ArrayList<Pension> pensionList = new ArrayList<>();
-        String sql = "SELECT * FROM public.pension";
+        String sql = "SELECT * FROM public.hotel_pension";
         try {
-            ResultSet rs = this.con.createStatement().executeQuery(sql);
+            ResultSet rs = this.connection.createStatement().executeQuery(sql);
             while (rs.next()) {
 
                 pensionList.add(this.match(rs));
@@ -106,14 +106,14 @@ public class PensionDao {
 
     // Pansiyon ekleyen metot
     public boolean save(Pension pension){
-        String query = "INSERT INTO public.pension"+
+        String query = "INSERT INTO public.hotel_pension"+
                 "("+
                 "hotel_id,"+
                 "pension_type"+
                 ")"+
                 "VALUES (?,?)";
         try {
-            PreparedStatement pr = con.prepareStatement(query);
+            PreparedStatement pr = connection.prepareStatement(query);
             pr.setInt(1,pension.getHotel_id());
             pr.setString(2,pension.getPension_type());
             return  pr.executeUpdate() != -1;
@@ -126,8 +126,8 @@ public class PensionDao {
     // Pansiyon silen metot
     public boolean delete(int hotel_id){
         try{
-            String query = "DELETE FROM public.pension WHERE id = ?";
-            PreparedStatement pr = con.prepareStatement(query);
+            String query = "DELETE FROM public.hotel_pension WHERE id = ?";
+            PreparedStatement pr = connection.prepareStatement(query);
             pr.setInt(1,hotel_id);
             return pr.executeUpdate() != -1;
         }catch (SQLException throwables){

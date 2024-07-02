@@ -16,7 +16,6 @@ public class UserManager {
     // Kullanıcı adı ve şifreye göre kullanıcıyı bulan metot
     public User findByLoging(String username, String password) {
         return this.userDao.findByLogin(username, password);
-
     }
 
     // Tablo için gerekli bilgileri sağlayan metot
@@ -32,7 +31,6 @@ public class UserManager {
             modelObjList.add(rowObject);
         }
         return modelObjList;
-
     }
 
     // Tüm kullanıcıları getiren metot
@@ -52,7 +50,7 @@ public class UserManager {
     // Kullanıcı bilgilerini güncelleyen metot
     public boolean update(User user) {
         if (this.getById(user.getId()) == null) {
-            Helper.showMsg(user.getId() + "ID kayıtlı model bulunamadı");
+            Helper.showMsg(user.getId() + " ID kayıtlı model bulunamadı");
             return false;
         }
         return this.userDao.update(user);
@@ -63,8 +61,7 @@ public class UserManager {
         return this.userDao.getByID(id);
     }
 
-
-    //Silme işlemini yapan metod
+    // Silme işlemini yapan metod
     public boolean delete(int id) {
         if (this.getById(id) == null) {
             Helper.showMsg(id + " ID kayıtlı model bulunamadı");
@@ -75,15 +72,15 @@ public class UserManager {
 
     // Rolüne göre kullanıcıları arayan metot
     public ArrayList<User> searchForTable(String role) {
-        String select = "SELECT * FROM public.user";
+        String select = "SELECT * FROM public.users"; // Tablo adı düzeltildi
         ArrayList<String> whereList = new ArrayList<>();
-        if (role != null) {
-            whereList.add("role='" + role + "'");
+        if (role != null && !role.isEmpty()) {
+            whereList.add("user_role='" + role + "'");
         }
 
         String whereStr = String.join(" AND ", whereList);
         String query = select;
-        if (whereStr.length() > 0) {
+        if (!whereStr.isEmpty()) {
             query += " WHERE " + whereStr;
         }
         System.out.println(whereList);

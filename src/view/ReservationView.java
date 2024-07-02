@@ -4,7 +4,9 @@ import business.ReservationManager;
 import business.RoomManager;
 import business.SeasonManager;
 import core.Helper;
-import entity.*;
+import entity.Hotel;
+import entity.Room;
+import entity.Reservation;
 
 import javax.swing.*;
 import java.time.LocalDate;
@@ -15,19 +17,6 @@ public class ReservationView extends Layout {
     private JPanel container;
     private JButton btn_reservation_add;
     private JRadioButton rb_wifi;
-
-    private ReservationManager reservationManager = new ReservationManager();
-    private Season season;
-    private Pension pension;
-    private Reservation reservation;
-    private SeasonManager seasonManager = new SeasonManager();
-    private RoomManager roomManager;
-
-    private Room room;
-    private String check_in_date;
-    private String check_out_date;
-    private Double adult_price;
-    private Double child_price;
     private JTextField txtf_hotel_name;
     private JTextField txtf_city;
     private JTextField txtf_star;
@@ -54,94 +43,88 @@ public class ReservationView extends Layout {
     private JTextField txtf_phone;
     private JTextField txtf_finish_date;
 
+    private ReservationManager reservationManager;
+    private RoomManager roomManager;
+    private SeasonManager seasonManager;
 
-    // Kurucu metod
-    public ReservationView(Room room, String check_in_date, String check_out_date, int adult_numb, int child_numb, Reservation reservation) {
+    private Room room;
+    private Hotel hotel;
+    private LocalDate startDate;
+    private LocalDate endDate;
+
+    // Constructor
+    public ReservationView(Hotel hotel, Room room, LocalDate startDate, LocalDate endDate) {
+        this.hotel = hotel;
+        this.room = room;
+        this.startDate = startDate;
+        this.endDate = endDate;
+
+        this.reservationManager = new ReservationManager();
+        this.roomManager = new RoomManager();
+        this.seasonManager = new SeasonManager();
 
         this.add(container);
-        this.guiInitilaze(1200, 1200);
-        this.container = container;
+        this.guiInitilaze(1200, 1000);
 
-        // Oda ve rezervasyon bilgilerini atama
-        this.room = room;
-        this.adult_price = adult_price;
-        this.child_price = child_price;
-        this.check_in_date = check_in_date;
-        this.check_out_date = check_out_date;
+        loadData();
+        btn_reservation_add.addActionListener(e -> onAddReservation());
+    }
+    private void loadData() {
+        long dayCount = ChronoUnit.DAYS.between(startDate, endDate);
+        double totalPrice = room.getAdult_price() * dayCount * seasonManager.returnPriceParameter(room.getSeason_id());
 
+        txtf_hotel_name.setText(hotel.getName());
+        txtf_city.setText(hotel.getCity());
+        txtf_star.setText(hotel.getStar());
+        rb_carpark.setSelected(hotel.isCar_park());
+        rb_wifi.setSelected(hotel.isWifi());
+        rb_swim.setSelected(hotel.isPool());
+        rb_gym.setSelected(hotel.isFitness());
+        rb_spa.setSelected(hotel.isSpa());
+        rb_room_service.setSelected(hotel.isRoom_service());
+        txtf_room_type.setText(room.getType());
+        txtf_bed_capasity.setText(String.valueOf(room.getBed_capacity()));
+        txtf_pension_type.setText(room.getPension() != null ? room.getPension().getPension_type() : "");
+        txtf_room_field.setText(String.valueOf(room.getSquare_meter()));
+        txtf_first_date.setText(startDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        txtf_finish_date.setText(endDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        rb_tv.setSelected(room.isTelevision());
+        rb_air.setSelected(room.isGame_console());
+        rb_cafe.setSelected(room.isCash_box());
+        rb_iron.setSelected(room.isProjection());
+        rb_bar.setSelected(room.isMinibar());
+        txtf_total.setText(String.valueOf(totalPrice));
+        txtf_total_guest.setText(String.valueOf(room.getBed_capacity()));
+    }
 
-        if (this.reservation == null) ;
-        {
-            this.reservation = new Reservation();
-            this.roomManager = new RoomManager();
+    private void onAddReservation() {
+        JTextField[] checkfieldEmpty = {txtf_name, txtf_id, txtf_mail, txtf_phone};
+        if (Helper.isFieldListEmpty(checkfieldEmpty)) {
+            Helper.showMsg("fill");
+        } else {
+            boolean result;
 
-        }
-        int guest_count = adult_numb + child_numb;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate checkindate = LocalDate.parse(check_in_date, formatter);
-        LocalDate checkoutdate = LocalDate.parse(check_out_date, formatter);
-        long day_count = ChronoUnit.DAYS.between(checkindate, checkoutdate);
+            Reservation reservation = new Reservation();
+            reservation.setTotal_price(Double.parseDouble(txtf_total.getText()));
+            reservation.setGuest_count(Integer.parseInt(txtf_total_guest.getText()));
+            reservation.setGuest_name(txtf_name.getText());
+            reservation.setGuess_citizen_id(txtf_id.getText());
+            reservation.setGuess_mail(txtf_mail.getText());
+            reservation.setGuess_phone(txtf_phone.getText());
+            reservation.setRoom_id(room.getId());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            reservation.setCheck_in_date(LocalDate.parse(txtf_first_date.getText(), formatter));
+            reservation.setCheck_out_date(LocalDate.parse(txtf_finish_date.getText(), formatter));
 
-        double total_price = ((this.room.getAdult_price() * adult_numb)+ this.room.getChild_price() * child_numb) * day_count * this.seasonManager.returnPriceParameter(this.room.getSeason_id()) ;
-
-
-        // GUI bileşenlerini doldur
-        this.txtf_hotel_name.setText(this.room.getHotel().getName());
-        this.txtf_city.setText(this.room.getHotel().getAddress());
-        this.txtf_star.setText(this.room.getHotel().getStar());
-        this.rb_carpark.setSelected(this.room.getHotel().isCar_park());
-        this.rb_wifi.setSelected(this.room.getHotel().isWifi());
-        this.rb_swim.setSelected(this.room.getHotel().isPool());
-        this.rb_gym.setSelected(this.room.getHotel().isFitness());
-        this.rb_spa.setSelected(this.room.getHotel().isSpa());
-        this.rb_room_service.setSelected(this.room.getHotel().isRoom_service());
-        this.txtf_room_type.setText(this.room.getType());
-        this.txtf_bed_capasity.setText(String.valueOf(this.room.getBed_capacity()));
-        this.txtf_pension_type.setText(this.room.getPension().getPension_type());
-        this.txtf_room_field.setText(String.valueOf(this.room.getSquare_meter()));
-        this.txtf_first_date.setText(String.valueOf(this.check_in_date));
-
-        this.txtf_finish_date.setText(String.valueOf(this.check_out_date));
-        this.rb_tv.setSelected(this.room.isTelevision());
-        this.rb_air.setSelected(this.room.isAir());
-        this.rb_cafe.setSelected(this.room.isCafe());
-        this.rb_iron.setSelected(this.room.isIron());
-        this.rb_bar.setSelected(this.room.isMinibar());
-        this.txtf_total.setText(String.valueOf(total_price));
-        this.txtf_total_guest.setText(String.valueOf(guest_count));
-
-        // Rezervasyon ekleme butonuna dinleyici ekle
-        btn_reservation_add.addActionListener(e -> {
-            JTextField[] checkfieldEmpty = {this.txtf_name,this.txtf_id,this.txtf_mail,this.txtf_phone};
-            if (Helper.isFieldListEmpty(checkfieldEmpty)){
-                Helper.showMsg("fill");
-            }else{
-                boolean result;
-
-                // Rezervasyon bilgilerini atama
-                this.reservation.setTotal_price(Double.parseDouble(this.txtf_total.getText()));
-                this.reservation.setGuest_count(Integer.parseInt(this.txtf_total_guest.getText()));
-                this.reservation.setGuest_name(this.txtf_name.getText());
-                this.reservation.setGuess_citizen_id(this.txtf_id.getText());
-                this.reservation.setGuess_mail(this.txtf_mail.getText());
-                this.reservation.setGuess_phone(this.txtf_phone.getText());
-                this.reservation.setRoom_id(this.room.getId());
-                this.reservation.setCheck_in_date(LocalDate.parse(this.check_in_date,formatter));
-                this.reservation.setCheck_out_date(LocalDate.parse(this.check_out_date,formatter));
-
-                result = this.reservationManager.save(this.reservation);
-                if (result){
-                    Helper.showMsg("done");
-
-                    this.roomManager.getById(this.room.setStock(this.room.getStock()-1));
-                    this.roomManager.updateStock(this.room);
-                    dispose();
-                }else {
-                    Helper.showMsg("error");
-                }
-
+            result = reservationManager.save(reservation);
+            if (result) {
+                Helper.showMsg("done");
+                room.setStock(room.getStock() - 1);
+                roomManager.updateStock(room);
+                dispose();
+            } else {
+                Helper.showMsg("error");
             }
-        });
+        }
     }
 }
-

@@ -146,9 +146,9 @@ public class Reservation {
                 ", total_price=" + total_price +
                 ", guest_count=" + guest_count +
                 ", guest_name='" + guest_name + '\'' +
-                ", guess_citizen_id='" + guess_citizen_id + '\'' +
-                ", guess_phone='" + guess_phone + '\'' +
-                ", guess_mail='" + guess_mail + '\'' +
+                ", guest_citizen_id='" + guess_citizen_id + '\'' +
+                ", guest_phone='" + guess_phone + '\'' +
+                ", guest_mail='" + guess_mail + '\'' +
                 '}';
     }
 }

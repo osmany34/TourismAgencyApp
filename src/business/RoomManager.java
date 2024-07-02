@@ -2,16 +2,13 @@ package business;
 
 import core.Helper;
 import dao.RoomDao;
-import entity.Pension;
+import entity.Hotel;
 import entity.Room;
-import entity.User;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-
-// Oda işlemlerini yöneten sınıf
 public class RoomManager {
     RoomDao roomDao = new RoomDao(); // Oda veritabanı erişim nesnesi
 
@@ -23,11 +20,10 @@ public class RoomManager {
 
     public ArrayList<Room> getRoomByOtelId(int id){return this.roomDao.getRoomByOtelId(id);}
 
-
     // Tablo için gerekli bilgileri sağlayan metot
-    public ArrayList<Object[]> getForTable(int size,ArrayList<Room> rooms){
+    public ArrayList<Object[]> getForTable(int size, ArrayList<Room> rooms) {
         ArrayList<Object[]> roomList = new ArrayList<>();
-        for (Room obj : rooms){
+        for (Room obj : rooms) {
             int i = 0;
             Object[] rowObject = new Object[size];
             rowObject[i++] = obj.getId();
@@ -42,18 +38,32 @@ public class RoomManager {
             rowObject[i++] = obj.getSquare_meter();
             rowObject[i++] = obj.isTelevision();
             rowObject[i++] = obj.isMinibar();
-            rowObject[i++] = obj.isAir();
-            rowObject[i++] = obj.isCafe();
-            rowObject[i++] = obj.isIron();
+            rowObject[i++] = obj.isGame_console();
+            rowObject[i++] = obj.isCash_box();
+            rowObject[i++] = obj.isProjection();
             roomList.add(rowObject);
         }
         return roomList;
+    }
+
+    // Belirtilen kriterlere göre odaları arar
+    public ArrayList<Room> searchRooms(String startDate, String endDate, String city, String hotelName) {
+        return roomDao.searchRooms(startDate, endDate, city, hotelName);
+    }
+    // Otelin bulunduğu şehirleri döndürür
+    public ArrayList<String> getHotelCities(int hotelId) {
+        return roomDao.getHotelCities(hotelId);
+    }
+    // Tüm otelleri döndürür
+    public ArrayList<Hotel> getAllHotels() {
+        return roomDao.getAllHotels();
     }
 
     // Oda kaydını veritabanına ekleyen metot
     public boolean save(Room room){
         if(room.getId()!=0){
             Helper.showMsg("error");
+            return false;
         }
         return this.roomDao.save(room);
     }
@@ -113,8 +123,6 @@ public class RoomManager {
 
         System.out.println(query);
 
-        ArrayList<Room> queryResult = this.roomDao.selectByQuery(query);
-        return queryResult;
+        return this.roomDao.selectByQuery(query);
     }
-
 }

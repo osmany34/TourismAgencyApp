@@ -32,7 +32,7 @@ public class PensionView extends Layout {
         this.pension = new Pension();
         this.add(container);
         this.guiInitilaze(375, 250);
-        for (Hotel hotel : this.hotelManager.findAll()) {
+        for (Hotel hotel : this.hotelManager.getAllHotels()) {
             this.cmb_hotel.addItem(hotel.getComboItem());
 
         }

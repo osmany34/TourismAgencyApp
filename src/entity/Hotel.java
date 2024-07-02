@@ -3,6 +3,8 @@ package entity;
 import business.HotelManager;
 import core.ComboItem;
 
+import java.util.StringJoiner;
+
 public class Hotel {
     private int id;
     private String name;
@@ -15,7 +17,6 @@ public class Hotel {
     private boolean car_park;
     private boolean pool;
     private boolean fitness;
-    private boolean concierge;
     private boolean spa;
     private boolean room_service;
     private Pension pension;
@@ -42,6 +43,11 @@ public class Hotel {
         this.fitness = fitness;
         this.spa = spa;
         this.room_service = room_service;
+    }
+
+    public Hotel(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     // Getter ve Setter metotları
@@ -155,22 +161,28 @@ public class Hotel {
         return new ComboItem(this.getId(), this.getName());
     }
 
+    // Combobox'ta sadece otel adının görünmesini sağlar
     @Override
     public String toString() {
-        return "Hotel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", mail='" + mail + '\'' +
-                ", phone='" + phone + '\'' +
-                ", star='" + star + '\'' +
-                ", wifi=" + wifi +
-                ", car_park=" + car_park +
-                ", pool=" + pool +
-                ", fitness=" + fitness +
-                ", spa=" + spa +
-                ", room_service=" + room_service +
-                '}';
+        return name;
+    }
+
+    // Otel detaylarını String olarak döndürür
+    public String toDetailedString() {
+        return new StringJoiner(", ", Hotel.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("name='" + name + "'")
+                .add("address='" + address + "'")
+                .add("city='" + city + "'")
+                .add("mail='" + mail + "'")
+                .add("phone='" + phone + "'")
+                .add("star='" + star + "'")
+                .add("wifi=" + wifi)
+                .add("car_park=" + car_park)
+                .add("pool=" + pool)
+                .add("fitness=" + fitness)
+                .add("spa=" + spa)
+                .add("room_service=" + room_service)
+                .toString();
     }
 }

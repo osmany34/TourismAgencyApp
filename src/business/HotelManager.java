@@ -16,7 +16,7 @@ public class HotelManager {
     }
 
     // Tüm otelleri getiren metot
-    public ArrayList<Hotel> findAll() {return this.hotelDao.findAll();}
+    public ArrayList<Hotel> getAllHotels() {return this.hotelDao.findAll();}
 
     // Tablo için gerekli bilgileri sağlayan metot
     public ArrayList<Object[]> getForTable(int size,ArrayList<Hotel> hotels){

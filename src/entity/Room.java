@@ -16,9 +16,10 @@ public class Room {
     private int square_meter;
     private boolean television;
     private boolean minibar;
-    private boolean iron;
-    private boolean air;
-    private boolean cafe;
+    private boolean game_console;
+    private boolean cash_box;
+    private boolean projection;
+    private boolean gym;
 
 
     // Boş kurucu metot
@@ -27,7 +28,7 @@ public class Room {
 
 
     // Parametreli kurucu metot
-    public Room(int id, int hotel_id, int pension_id, int season_id, String type, int stock, double adult_price, double child_price, int bed_capacity, int square_meter, boolean television, boolean minibar, boolean iron, boolean air,boolean cafe) {
+    public Room(int id, int hotel_id, int pension_id, int season_id, String type, int stock, double adult_price, double child_price, int bed_capacity, int square_meter, boolean television, boolean minibar, boolean game_console, boolean cash_box, boolean projection,boolean gym) {
         this.id = id;
         this.hotel_id = hotel_id;
         this.pension_id = pension_id;
@@ -40,19 +41,20 @@ public class Room {
         this.square_meter = square_meter;
         this.television = television;
         this.minibar = minibar;
-        this.iron = iron;
-        this.air = air;
-        this.cafe = cafe;
+        this.game_console = game_console;
+        this.cash_box = cash_box;
+        this.projection = projection;
+        this.gym = gym;
     }
 
 
     // Getter ve Setter metotları
-    public boolean isCafe() {
-        return cafe;
+    public boolean isGym() {
+        return gym;
     }
 
-    public void setCafe(boolean cafe) {
-        this.cafe = cafe;
+    public void setGym(boolean gym) {
+        this.gym = gym;
     }
 
     public int getId() {
@@ -152,20 +154,28 @@ public class Room {
         this.minibar = minibar;
     }
 
-    public boolean isIron() {
-        return iron;
+    public boolean isGame_console() {
+        return game_console;
     }
 
-    public void setIron(boolean iron) {
-        this.iron = iron;
+    public void setGame_console(boolean game_console) {
+        this.game_console = game_console;
     }
 
-    public boolean isAir() {
-        return air;
+    public boolean isCash_box() {
+        return cash_box;
     }
 
-    public void setAir(boolean air) {
-        this.air = air;
+    public void setCash_box(boolean cash_box) {
+        this.cash_box = cash_box;
+    }
+
+    public boolean isProjection() {
+        return projection;
+    }
+
+    public void setProjection(boolean projection) {
+        this.projection = projection;
     }
 
     @Override
@@ -183,9 +193,9 @@ public class Room {
                 ", square_meter=" + square_meter +
                 ", television=" + television +
                 ", minibar=" + minibar +
-                ", iron=" + iron +
-                ", air=" + air +
-                ", cafe=" + cafe +
+                ", game_console=" + game_console +
+                ", cash_box=" + cash_box +
+                ", projection=" + projection +
                 '}';
     }
     public Hotel getHotel() {

@@ -60,9 +60,10 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <enabled value="false"/>
+                  <enabled value="true"/>
                   <model>
-                    <item value="personel,admin"/>
+                    <item value="admin"/>
+                    <item value="employee"/>
                   </model>
                 </properties>
               </component>
@@ -121,7 +122,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <enabled value="false"/>
+        </properties>
       </component>
       <component id="b88d2" class="javax.swing.JLabel">
         <constraints>
@@ -137,7 +140,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <enabled value="false"/>
+        </properties>
       </component>
       <component id="508c4" class="javax.swing.JLabel">
         <constraints>
@@ -152,10 +157,10 @@
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <enabled value="false"/>
           <model>
-            <item value="Admin"/>
-            <item value="Personel"/>
-            <item value="Employee"/>
+            <item value="admin"/>
+            <item value="employee"/>
           </model>
         </properties>
       </component>
